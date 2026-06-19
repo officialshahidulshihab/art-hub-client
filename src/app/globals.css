@@ -1,26 +1,52 @@
 @import "tailwindcss";
+@import "@heroui/styles"; 
+
+
+@custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-background: #F2EFE6;
+  --color-foreground: #1A1A1A;
+  --color-primary: #B6633A;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #E8E4DA;
+  --color-secondary-foreground: #1A1A1A;
+  --color-muted: #D5D0C5;
+  --color-muted-foreground: #6B6457;
+  --color-border: #D4CFC4;
+  --color-card: #FAF8F2;
+  --color-destructive: #C53030;
+  --color-destructive-foreground: #FFFFFF;
+}
+
+.dark {
+  --color-background: #0F172A;
+  --color-foreground: #EAE6DA;
+  --color-primary: #D4724A;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #334155;
+  --color-secondary-foreground: #EAE6DA;
+  --color-muted: #1E293B;
+  --color-muted-foreground: #94A3B8;
+  --color-border: #334155;
+  --color-card: #1E293B;
+  --color-destructive: #E53E3E;
+  --color-destructive-foreground: #FFFFFF;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-foreground);
+  --color-primary: var(--color-primary);
+  --color-primary-foreground: var(--color-primary-foreground);
+  --color-secondary: var(--color-secondary);
+  --color-secondary-foreground: var(--color-secondary-foreground);
+  --color-muted: var(--color-muted);
+  --color-muted-foreground: var(--color-muted-foreground);
+  --color-border: var(--color-border);
+  --color-card: var(--color-card);
+  --color-destructive: var(--color-destructive);
+  --color-destructive-foreground: var(--color-destructive-foreground);
+  --font-serif: var(--font-instrument-serif), serif;
+  --font-sans: var(--font-work-sans), sans-serif;
 }
