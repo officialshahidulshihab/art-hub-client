@@ -2,6 +2,7 @@ import { Instrument_Serif, Work_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/Components/Navbar";
 import { Providers } from "./providers";
+import { ToastContainer } from "react-toastify";
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
@@ -32,6 +33,7 @@ export default function RootLayout({ children }) {
         <Providers>
           <Navbar />
           <main>{children}</main>
+           <ToastContainer />
         </Providers>
       </body>
     </html>

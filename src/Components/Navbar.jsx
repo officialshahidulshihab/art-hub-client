@@ -1,19 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import NextLink from "next/link";
+
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { Avatar, Dropdown, Label, Separator } from "@heroui/react";
 import Link from "next/link";
 import Image from "next/image";
-import Logo from "@/asset/arthub-icon.png"
-
-const NAV_LINKS = [
-  { label: "Home", href: "/" },
-  { label: "Browse Artworks", href: "/browse" },
-  { label: "Artists", href: "/artists" },
-];
+import Logo from "@/asset/arthub-icon.png";
+import { authClient } from "@/lib/auth-client";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,7 +16,27 @@ export default function Navbar() {
   const router = useRouter();
   const { theme, setTheme } = useTheme();
 
-  const user = null;
+  const { data: session } = authClient.useSession();
+
+  const user = session?.user;
+
+  const handleMenuAction = async (key) => {
+    if (key === "dashboard") router.push(`/dashboard/${user.role}`);
+    if (key === "profile") router.push("/profile");
+    if (key === "logout") {
+      await authClient.signOut();
+    }
+  };
+
+  const BASE_LINKS = [
+    { label: "Home", href: "/" },
+    { label: "Browse Artworks", href: "/browse" },
+    { label: "Artists", href: "/artists" },
+  ];
+
+  const NAV_LINKS = user
+    ? [...BASE_LINKS, { label: "Dashboard", href: `/dashboard/${user.role}` }]
+    : BASE_LINKS;
 
   const isActive = (href) =>
     href === "/" ? pathname === "/" : pathname?.startsWith(href);
@@ -107,7 +122,7 @@ export default function Navbar() {
         <ul className="hidden items-center gap-8 md:flex">
           {NAV_LINKS.map((item) => (
             <li key={item.href}>
-              <NextLink
+              <Link
                 href={item.href}
                 aria-current={isActive(item.href) ? "page" : undefined}
                 className={`border-b-2 pb-1 text-sm transition-colors ${
@@ -117,12 +132,11 @@ export default function Navbar() {
                 }`}
               >
                 {item.label}
-              </NextLink>
+              </Link>
             </li>
           ))}
         </ul>
 
-     
         <div className="hidden items-center gap-3 md:flex">
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -161,30 +175,29 @@ export default function Navbar() {
             </Dropdown>
           ) : (
             <>
-              <NextLink
-                href="/login"
+              <Link
+                href="/signin"
                 className="rounded-md border border-border px-4 py-2 text-sm text-foreground transition-colors hover:bg-secondary"
               >
                 Sign in
-              </NextLink>
-              <NextLink
-                href="/register"
+              </Link>
+              <Link
+                href="/signup"
                 className="rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90"
               >
                 Join
-              </NextLink>
+              </Link>
             </>
           )}
         </div>
       </header>
 
-    
       {isMenuOpen && (
         <div className="border-t border-border md:hidden">
           <ul className="flex flex-col gap-1 p-4">
             {NAV_LINKS.map((item) => (
               <li key={item.href}>
-                <NextLink
+                <Link
                   href={item.href}
                   onClick={() => setIsMenuOpen(false)}
                   className={`block py-2 text-sm ${
@@ -194,7 +207,7 @@ export default function Navbar() {
                   }`}
                 >
                   {item.label}
-                </NextLink>
+                </Link>
               </li>
             ))}
 
@@ -211,27 +224,27 @@ export default function Navbar() {
 
             {!user ? (
               <li className="mt-2 flex flex-col gap-2 border-t border-border pt-4">
-                <NextLink
+                <Link
                   href="/login"
                   className="w-full rounded-md border border-border px-4 py-2 text-center text-sm text-foreground"
                 >
                   Sign in
-                </NextLink>
-                <NextLink
+                </Link>
+                <Link
                   href="/register"
                   className="w-full rounded-md bg-foreground px-4 py-2 text-center text-sm font-medium text-background"
                 >
                   Join
-                </NextLink>
+                </Link>
               </li>
             ) : (
               <li className="mt-2 flex flex-col gap-2 border-t border-border pt-4 text-sm">
-                <NextLink href={`/dashboard/${user.role}`} className="py-1">
+                <Link href={`/dashboard/${user.role}`} className="py-1">
                   Dashboard
-                </NextLink>
-                <NextLink href="/profile" className="py-1">
+                </Link>
+                <Link href="/profile" className="py-1">
                   Profile
-                </NextLink>
+                </Link>
                 <button
                   onClick={() => handleMenuAction("logout")}
                   className="py-1 text-left text-destructive"
