@@ -1,64 +1,89 @@
 export const getBanners = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/banners`, {
-    cache: "no-store",
-  });
-  const data = await res.json();
-  return data;
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/banners`, {
+      cache: "no-store",
+    });
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
 };
 
 export const getFeaturedArtworks = async () => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/artworks/featured`,
-    { cache: "no-store" },
-  );
-  const data = await res.json();
-  return data;
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/artworks/featured`,
+      { cache: "no-store" },
+    );
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
 };
 
 export const getTopArtists = async () => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/artists/top`,
-    { cache: "no-store" },
-  );
-  const data = await res.json();
-  return data;
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/artists/top`,
+      { cache: "no-store" },
+    );
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
 };
 
 export const getArtistById = async (id) => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/artists/${id}`,
-    { cache: "no-store" },
-  );
-  if (!res.ok) return null;
-  const data = await res.json();
-  return data;
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/artists/${id}`,
+      { cache: "no-store" },
+    );
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
 };
 
 export const getArtistArtworks = async (id) => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/artists/${id}/artworks`,
-    { cache: "no-store" },
-  );
-  const data = await res.json();
-  return data;
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/artists/${id}/artworks`,
+      { cache: "no-store" },
+    );
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
 };
-
 
 export const getAllArtworks = async () => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/artworks`,
-    { cache: "no-store" },
-  );
-  const data = await res.json();
-  return data;
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/artworks`,
+      { cache: "no-store" },
+    );
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
 };
 
-
 export const getAllArtists = async () => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/artists`,
-    { cache: "no-store" },
-  );
-  const data = await res.json();
-  return data;
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/artists`,
+      { cache: "no-store" },
+    );
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
 };
