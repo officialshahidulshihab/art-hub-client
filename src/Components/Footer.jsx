@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { FiMail, FiInstagram, FiTwitter, FiFacebook } from "react-icons/fi";
+import Image from "next/image";
+import Logo from "@/asset/arthub-icon.png";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -21,9 +23,14 @@ const Footer = () => {
 
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="flex h-7 w-7 items-center justify-center bg-primary text-primary-foreground font-sans text-sm font-semibold">
-                A
-              </div>
+              <Image
+              src={Logo}
+              alt="ArtHub"
+              width={32}
+              height={35}
+              priority
+              className="h-8 w-auto"
+            />
               <span className="font-serif text-lg text-foreground">ArtHub</span>
             </div>
             <p className="font-sans text-sm text-muted-foreground leading-relaxed max-w-[220px]">
