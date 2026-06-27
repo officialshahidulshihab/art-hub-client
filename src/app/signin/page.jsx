@@ -2,13 +2,12 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
 import Image from "next/image";
 import { toast } from "react-toastify";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 
-function FormField({ label, id, ...props }) {
+const FormField = ({ label, id, ...props }) => {
   return (
     <div>
       <label
@@ -24,15 +23,16 @@ function FormField({ label, id, ...props }) {
       />
     </div>
   );
-}
+};
 
-function validatePassword(value) {
+const validatePassword = (value) => {
   if (value.length < 8) return "Password must be at least 8 characters.";
   if (!/[A-Z]/.test(value)) return "Add at least one uppercase letter.";
   if (!/[a-z]/.test(value)) return "Add at least one lowercase letter.";
   if (!/[0-9]/.test(value)) return "Add at least one number.";
   return null;
-}
+};
+
 const SignInPage = () => {
   const router = useRouter();
   const [role, setRole] = useState("collector");
@@ -59,7 +59,7 @@ const SignInPage = () => {
 
     if (data) {
       toast.success("Sign in successful!");
-      router.push("/");
+      window.location.href = "/";
     }
     if (error) {
       toast.error(error.message);
@@ -107,7 +107,6 @@ const SignInPage = () => {
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-5 mt-5">
-         
           <FormField
             label="Email"
             id="email"
@@ -182,14 +181,12 @@ const SignInPage = () => {
             </div>
           </div>
 
-          
-
           <button
             type="submit"
             disabled={isSubmitting}
             className="w-full rounded-md bg-foreground px-4 py-3 text-sm font-medium text-background transition-opacity hover:opacity-90 disabled:opacity-50"
           >
-            {isSubmitting ? "Creating account…" : "Create account"}
+            {isSubmitting ? "Signing in…" : "Sign in"}
           </button>
 
           <p className="text-xs text-muted-foreground">
@@ -210,6 +207,7 @@ const SignInPage = () => {
             .
           </p>
         </form>
+
         <div className="my-6 flex items-center gap-3">
           <span className="h-px flex-1 bg-border" />
           <span className="text-xs uppercase tracking-wide text-muted-foreground">
@@ -217,6 +215,7 @@ const SignInPage = () => {
           </span>
           <span className="h-px flex-1 bg-border" />
         </div>
+
         <button
           type="button"
           onClick={handleGoogleSignup}

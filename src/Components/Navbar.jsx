@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { Avatar, Dropdown, Label, Separator } from "@heroui/react";
@@ -10,21 +9,26 @@ import Image from "next/image";
 import Logo from "@/asset/arthub-icon.png";
 import { authClient } from "@/lib/auth-client";
 
-export default function Navbar() {
+const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const { theme, setTheme } = useTheme();
 
   const { data: session } = authClient.useSession();
-
   const user = session?.user;
 
   const handleMenuAction = async (key) => {
-    if (key === "dashboard") router.push(`/dashboard/${user.role}`);
-    if (key === "profile") router.push("/profile");
+    if (key === "dashboard") window.location.href = `/dashboard/${user.role}`;
+    if (key === "profile") window.location.href = "/profile";
     if (key === "logout") {
-      await authClient.signOut();
+      await authClient.signOut({
+        fetchOptions: {
+          onSuccess: () => {
+            window.location.href = "/";
+          },
+        },
+      });
     }
   };
 
@@ -71,6 +75,10 @@ export default function Navbar() {
         />
       </svg>
     );
+
+  if (pathname?.startsWith("/dashboard")) return null;
+  if (pathname?.startsWith("/signin")) return null;
+  if (pathname?.startsWith("/signup")) return null;
 
   return (
     <nav className="sticky top-0 z-40 w-full border-b border-border bg-background/80 backdrop-blur-lg">
@@ -120,8 +128,8 @@ export default function Navbar() {
         </div>
 
         <ul className="hidden items-center gap-8 md:flex">
-          {NAV_LINKS.map((item) => (
-            <li key={item.href}>
+          {NAV_LINKS.map((item, ind) => (
+            <li key={ind}>
               <Link
                 href={item.href}
                 aria-current={isActive(item.href) ? "page" : undefined}
@@ -195,8 +203,8 @@ export default function Navbar() {
       {isMenuOpen && (
         <div className="border-t border-border md:hidden">
           <ul className="flex flex-col gap-1 p-4">
-            {NAV_LINKS.map((item) => (
-              <li key={item.href}>
+            {NAV_LINKS.map((item, ind) => (
+              <li key={ind}>
                 <Link
                   href={item.href}
                   onClick={() => setIsMenuOpen(false)}
@@ -258,4 +266,6 @@ export default function Navbar() {
       )}
     </nav>
   );
-}
+};
+
+export default Navbar;

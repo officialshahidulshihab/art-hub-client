@@ -3,6 +3,8 @@ import "./globals.css";
 import Navbar from "@/Components/Navbar";
 import { Providers } from "./providers";
 import { ToastContainer } from "react-toastify";
+import Footer from "@/Components/Footer";
+import ConditionalFooter from "@/Components/ConditionalFooter";
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
@@ -34,6 +36,7 @@ export default function RootLayout({ children }) {
           <Navbar />
           <main>{children}</main>
            <ToastContainer />
+           <ConditionalFooter></ConditionalFooter>
         </Providers>
       </body>
     </html>
