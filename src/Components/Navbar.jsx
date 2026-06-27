@@ -36,6 +36,8 @@ const Navbar = () => {
     { label: "Home", href: "/" },
     { label: "Browse Artworks", href: "/browse" },
     { label: "Artists", href: "/artists" },
+    { label: "Sign in", href: "/signin" },
+    { label: "Join", href: "/signup" },
   ];
 
   const NAV_LINKS = user
