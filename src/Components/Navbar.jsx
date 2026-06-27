@@ -36,8 +36,7 @@ const Navbar = () => {
     { label: "Home", href: "/" },
     { label: "Browse Artworks", href: "/browse" },
     { label: "Artists", href: "/artists" },
-    { label: "Sign in", href: "/signin" },
-    { label: "Join", href: "/signup" },
+    
   ];
 
   const NAV_LINKS = user
@@ -235,13 +234,13 @@ const Navbar = () => {
             {!user ? (
               <li className="mt-2 flex flex-col gap-2 border-t border-border pt-4">
                 <Link
-                  href="/login"
+                  href="/signin"
                   className="w-full rounded-md border border-border px-4 py-2 text-center text-sm text-foreground"
                 >
                   Sign in
                 </Link>
                 <Link
-                  href="/register"
+                  href="/signup"
                   className="w-full rounded-md bg-foreground px-4 py-2 text-center text-sm font-medium text-background"
                 >
                   Join
